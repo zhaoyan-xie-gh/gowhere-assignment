@@ -1,5 +1,10 @@
 import { httpApiClient } from "@/gateways/httpApiClient";
-import { TrafficImagesParams, TrafficImagesResponse } from "./types";
+import {
+  LatLongWithNameByFirstLetter,
+  ReverseGeoCodingDto,
+  TrafficImagesParams,
+  TrafficImagesResponse,
+} from "./types";
 
 export class TrafficImagesHttpService {
   async getTrafficImages({
@@ -8,5 +13,14 @@ export class TrafficImagesHttpService {
     return httpApiClient.get("/v1/transport/traffic-images", {
       params: { date_time: datetime },
     });
+  }
+
+  async reverseGeoCoding(
+    dto: ReverseGeoCodingDto
+  ): Promise<LatLongWithNameByFirstLetter> {
+    return httpApiClient.post(
+      "http://localhost:3001/api/v1/reverse-geocode",
+      dto
+    );
   }
 }

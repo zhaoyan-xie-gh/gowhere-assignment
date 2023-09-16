@@ -24,8 +24,10 @@ export const Screenshot = ({ trafficData }: ScreenshotProps) => {
     return cameraImages.length >= 1 ? (
       cameraImages.map(({ image }) => (
         <Image
+          key={image}
           src={image}
           width="100%"
+          maxH="400px"
           alt={`${selectedLocation.name} Traffic Image`}
           fallbackSrc="https://via.placeholder.com/150"
         />

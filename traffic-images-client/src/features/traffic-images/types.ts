@@ -1,3 +1,5 @@
+import { AreaMetadata } from "../weather-forecast/types";
+
 export interface DatetimeInput {
   date?: string;
   time?: string;
@@ -18,7 +20,6 @@ export interface LatLongWithName {
 export interface LatLongWithNameByFirstLetter {
   [firstLetter: string]: LatLongWithName[];
 }
-export const UNKNOWN_LOCATION_KEY = "Unknown";
 
 export interface TrafficImageCamera {
   camera_id: string;
@@ -44,4 +45,9 @@ export interface TrafficImagesResponse {
     status: ApiInfo;
   };
   items: TrafficImageItem[];
+}
+
+export interface ReverseGeoCodingDto {
+  areaMetadata: AreaMetadata[];
+  locations: LatLong[];
 }

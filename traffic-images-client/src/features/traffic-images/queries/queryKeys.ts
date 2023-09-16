@@ -1,4 +1,5 @@
 import { TrafficImagesParams } from "../types";
+import { UseReverseGeoCodeParams } from "./useReverseGeoCode";
 const PREFIX = "@@traffic-images";
 
 export const queryKeys = {
@@ -8,6 +9,13 @@ export const queryKeys = {
       ...queryKeys.all[0],
       component: "list",
       params,
+    },
+  ],
+  reverseGeoCode: (dto: UseReverseGeoCodeParams["dto"]) => [
+    {
+      ...queryKeys.all[0],
+      component: "reverseGeoCode",
+      dto,
     },
   ],
 };

@@ -7,7 +7,7 @@ export const Layout: React.FC<PropsWithChildren<{ maxW?: string }>> = ({
   return (
     <Flex>
       <Box flex={1}>
-        <Container flex="1 1 auto" minW="100%" minH="100vh" px="10" my="10">
+        <Container flex="1 1 auto" minW="100%" px="10" my="10">
           {children}
         </Container>
       </Box>
