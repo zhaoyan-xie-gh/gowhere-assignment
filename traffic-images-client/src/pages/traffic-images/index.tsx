@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem } from "@chakra-ui/react";
 import moment from "moment";
 import { useState } from "react";
 import { InfoAlert } from "../../components/InfoAlert";
@@ -54,7 +54,9 @@ export default function TrafficImages() {
       setDatetime((prev) => ({ ...prev, time: formattedValue }));
     }
   };
-
+  const onDatetimeClear = () => {
+    setDatetime({ date: undefined, time: undefined });
+  };
   return (
     <Box>
       <InfoAlert
@@ -63,7 +65,7 @@ export default function TrafficImages() {
           "Pick a date-time to retrieve data at that moment, or the latest will be retrieved every two minutes."
         }
       />
-      <Flex>
+      <Flex alignItems={"end"}>
         <StyledDatetime
           onChange={onDatetimeChange}
           value={datetime.date}
@@ -76,6 +78,7 @@ export default function TrafficImages() {
           type="time"
           label="Select a time"
         />
+        <Button onClick={onDatetimeClear}>Clear</Button>
       </Flex>
       <LocationSelectionProvider>
         <Grid templateColumns={"repeat(4, 1fr)"} my="6">

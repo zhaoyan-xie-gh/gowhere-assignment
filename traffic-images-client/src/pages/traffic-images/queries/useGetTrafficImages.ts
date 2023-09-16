@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import { useDebounce } from "../../../hooks/useDebounce";
 import { TrafficImagesHttpService } from "../services";
 import { queryKeys } from "./queryKeys";
 
@@ -13,9 +14,10 @@ export const useGetTrafficImages = ({
 }: UseGetTrafficImagesParams) => {
   const httpService = new TrafficImagesHttpService();
 
+  const debouncedDatetime = useDebounce(datetime);
   return useQuery(
-    queryKeys.list({ datetime }),
-    () => httpService.getTrafficImages({ datetime }),
+    queryKeys.list({ datetime: debouncedDatetime }),
+    () => httpService.getTrafficImages({ datetime: debouncedDatetime }),
     {
       retry: 0,
       refetchInterval: datetime ? undefined : REFETCH_INTERVAL,
