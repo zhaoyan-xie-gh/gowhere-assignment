@@ -14,9 +14,58 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe('reverseGeoCoding', () => {
+    const mockAreaMetadata = [
+      {
+        label_location: { latitude: 1.375, longitude: 103.839 },
+        name: 'Ang Mo Kio',
+      },
+      {
+        label_location: { latitude: 1.350772, longitude: 103.839 },
+        name: 'Bishan',
+      },
+    ];
+    const mockLocations = [
+      {
+        // amk
+        latitude: 1.375925022,
+        longitude: 103.8587986,
+      },
+      {
+        // bishan
+        latitude: 1.34355015,
+        longitude: 103.8601984,
+      },
+      {
+        // bishan [2]
+        latitude: 1.35296,
+        longitude: 103.85719,
+      },
+    ];
+    it('should return all locations resolved', () => {
+      expect(
+        appController.reverseGeoCoding({
+          areaMetadata: mockAreaMetadata,
+          locations: mockLocations,
+        }),
+      ).toEqual({
+        A: [
+          {
+            location: { latitude: 1.375925022, longitude: 103.8587986 },
+            name: 'Ang Mo Kio',
+          },
+        ],
+        B: [
+          {
+            location: { latitude: 1.34355015, longitude: 103.8601984 },
+            name: 'Bishan',
+          },
+          {
+            location: { latitude: 1.35296, longitude: 103.85719 },
+            name: 'Bishan [2]',
+          },
+        ],
+      });
     });
   });
 });
