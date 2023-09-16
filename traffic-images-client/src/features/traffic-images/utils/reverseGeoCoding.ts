@@ -1,4 +1,4 @@
-import { AreaMetadata } from "../../weather-forecast/types";
+import { AreaMetadata } from "../../../features/weather-forecast/types";
 import { LatLong, LatLongWithName } from "../types";
 
 /*

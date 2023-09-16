@@ -29,14 +29,14 @@ export const LocationCard = ({ locationWithName }: LocationProps) => {
         borderColor={isSelected ? "purple.300" : "blue.300"}
         bg={isSelected ? "purple.100" : "blue.50"}
         p="2"
-        w="15rem"
+        w={{ base: "15rem", md: "15rem" }}
         _hover={{
           bg: "orange.100",
           cursor: "pointer",
         }}
         onClick={() => setSelectedLocation(locationWithName)}
       >
-        <CardHeader>
+        <CardHeader p={{ base: "0", md: "2" }}>
           <Heading size="sm">{name}</Heading>
         </CardHeader>
         {name?.includes(UNKNOWN_LOCATION_KEY) && (

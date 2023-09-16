@@ -1,11 +1,8 @@
-import {
-  DATE_FORMAT,
-  TIME_FORMAT,
-} from "@/pages/traffic-images/contants/datetime";
-import { Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import moment from "moment";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
+import { DATE_FORMAT, TIME_FORMAT } from "../contants/datetime";
 
 export type StyledDatetimeType = "date" | "time";
 interface StyledDatetimeProps {
@@ -16,8 +13,6 @@ interface StyledDatetimeProps {
   type: StyledDatetimeType;
   label: string;
 }
-
-const MIN_INPUT_WIDTH = "300";
 
 export const StyledDatetime = ({
   onChange,
@@ -33,17 +28,15 @@ export const StyledDatetime = ({
         timeFormat={type === "date" ? false : TIME_FORMAT}
         onChange={(value) => onChange?.(value, type)}
         renderInput={(_, openCalendar) => (
-          <Flex justifyContent="center" alignItems="center">
-            <Input
-              minW={MIN_INPUT_WIDTH}
-              bg="white"
-              mr="4"
-              onFocus={() => openCalendar()}
-              placeholder={`Select ${type}...`}
-              value={value ?? ""}
-              readOnly
-            />
-          </Flex>
+          <Input
+            w="100%"
+            bg="white"
+            mr="4"
+            onFocus={() => openCalendar()}
+            placeholder={`Select ${type}...`}
+            value={value ?? ""}
+            readOnly
+          />
         )}
       />
     </FormControl>

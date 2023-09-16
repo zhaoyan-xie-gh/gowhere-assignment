@@ -33,7 +33,8 @@ export const LocationsSection = ({
       overflowY="scroll"
       bg="gray.100"
       p="2"
-      my="4"
+      mt={{ base: "0", md: "4" }}
+      mb="4"
     >
       <LocationSectionComponent locations={knownLocations} />
       <LocationSectionComponent locations={unknownLocations} />

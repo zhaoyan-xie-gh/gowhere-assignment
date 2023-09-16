@@ -1,21 +1,25 @@
-import { Box, Button, Flex, Grid, GridItem } from "@chakra-ui/react";
-import moment from "moment";
-import { useState } from "react";
-import { InfoAlert } from "../../components/InfoAlert";
+import { InfoAlert } from "@/components/InfoAlert";
+import { LocationsSection } from "@/features/traffic-images/components/LocationsSection";
+import { Screenshot } from "@/features/traffic-images/components/Screenshot";
 import {
   StyledDatetime,
   StyledDatetimeType,
-} from "../../components/StyledDatetime";
-import { useGetTwoHourWeatherForecast } from "../weather-forecast/queries/useGetTwoHourWeatherForecast";
-import { LocationsSection } from "./components/LocationsSection";
-import { Screenshot } from "./components/Screenshot";
-import { DATE_FORMAT, TIME_FORMAT } from "./contants/datetime";
-import { LocationSelectionProvider } from "./contexts/location-selection-context";
-import { useGetTrafficImages } from "./queries/useGetTrafficImages";
-import { DatetimeInput } from "./types";
-import { arrangeLocationsWithNames } from "./utils/arrangeLocationsWithNames";
-import { reverseGeoCoding } from "./utils/reverseGeoCoding";
-import { transformDatetimeInputToTrafficImagesParams } from "./utils/transformDatetimeInputToTrafficImagesParams";
+} from "@/features/traffic-images/components/StyledDatetime";
+import {
+  DATE_FORMAT,
+  TIME_FORMAT,
+} from "@/features/traffic-images/contants/datetime";
+import { LocationSelectionProvider } from "@/features/traffic-images/contexts/location-selection-context";
+import { useGetTrafficImages } from "@/features/traffic-images/queries/useGetTrafficImages";
+import { DatetimeInput } from "@/features/traffic-images/types";
+import { arrangeLocationsWithNames } from "@/features/traffic-images/utils/arrangeLocationsWithNames";
+import { reverseGeoCoding } from "@/features/traffic-images/utils/reverseGeoCoding";
+import { transformDatetimeInputToTrafficImagesParams } from "@/features/traffic-images/utils/transformDatetimeInputToTrafficImagesParams";
+import { WeatherForecastWidget } from "@/features/weather-forecast/components/WeatherForecastWidget";
+import { useGetTwoHourWeatherForecast } from "@/features/weather-forecast/queries/useGetTwoHourWeatherForecast";
+import { Box, Button, Flex } from "@chakra-ui/react";
+import moment from "moment";
+import { useState } from "react";
 
 export default function TrafficImages() {
   const [datetime, setDatetime] = useState<DatetimeInput>({
@@ -23,15 +27,19 @@ export default function TrafficImages() {
     time: undefined,
   });
 
+  const transformedDatetime =
+    transformDatetimeInputToTrafficImagesParams(datetime);
   const { data: trafficData } = useGetTrafficImages({
-    datetime: transformDatetimeInputToTrafficImagesParams(datetime),
+    datetime: transformedDatetime,
   });
   const locations = trafficData?.items.flatMap(({ cameras }) =>
     cameras.map(({ location }) => location)
   );
 
-  const { data } = useGetTwoHourWeatherForecast();
-  const areaMetadata = data?.area_metadata;
+  const { data: weather2HData } = useGetTwoHourWeatherForecast({
+    datetime: transformedDatetime,
+  });
+  const areaMetadata = weather2HData?.area_metadata;
 
   const geocodeReversed = reverseGeoCoding(locations, areaMetadata);
   const locationsByFirstLetter = geocodeReversed
@@ -57,37 +65,50 @@ export default function TrafficImages() {
   const onDatetimeClear = () => {
     setDatetime({ date: undefined, time: undefined });
   };
+
   return (
     <Box>
       <InfoAlert
         status="info"
-        message={
-          "Pick a date-time to retrieve data at that moment, or the latest will be retrieved every two minutes."
-        }
+        message="Pick a date-time to retrieve data at that moment, or the latest will be retrieved every two minutes."
       />
-      <Flex alignItems={"end"}>
-        <StyledDatetime
-          onChange={onDatetimeChange}
-          value={datetime.date}
-          type="date"
-          label="Select a date"
-        />
-        <StyledDatetime
-          onChange={onDatetimeChange}
-          value={datetime.time}
-          type="time"
-          label="Select a time"
-        />
-        <Button onClick={onDatetimeClear}>Clear</Button>
+      <Flex
+        alignItems={{ md: "end" }}
+        flexDir={{ base: "column", md: "row" }}
+        gap="4"
+      >
+        <Flex gap="2" w="100%">
+          <StyledDatetime
+            onChange={onDatetimeChange}
+            value={datetime.date}
+            type="date"
+            label="Select a date"
+          />
+          <StyledDatetime
+            onChange={onDatetimeChange}
+            value={datetime.time}
+            type="time"
+            label="Select a time"
+          />
+        </Flex>
+        <Button
+          onClick={onDatetimeClear}
+          mt={{ base: 2, md: 0 }}
+          variant="outline"
+          colorScheme="blue"
+        >
+          Clear
+        </Button>
       </Flex>
+
       <LocationSelectionProvider>
-        <Grid templateColumns={"repeat(4, 1fr)"} my="6">
-          <GridItem colSpan={3}>
+        <Flex flexDir={{ base: "column", md: "row-reverse" }} gap="6">
+          <WeatherForecastWidget weatherData={weather2HData?.items[0]} />
+          <Box>
             <LocationsSection locationsByFirstLetter={locationsByFirstLetter} />
             <Screenshot trafficData={trafficData} />
-          </GridItem>
-          <GridItem></GridItem>
-        </Grid>
+          </Box>
+        </Flex>
       </LocationSelectionProvider>
     </Box>
   );

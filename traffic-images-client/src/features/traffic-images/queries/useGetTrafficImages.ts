@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useDebounce } from "../../../hooks/useDebounce";
-import { TrafficImagesHttpService } from "../services";
+import { TrafficImagesHttpService } from "../../../features/traffic-images/services";
 import { queryKeys } from "./queryKeys";
 
 interface UseGetTrafficImagesParams {
@@ -21,6 +21,7 @@ export const useGetTrafficImages = ({
     {
       retry: 0,
       refetchInterval: datetime ? undefined : REFETCH_INTERVAL,
+      keepPreviousData: true,
     }
   );
 };
