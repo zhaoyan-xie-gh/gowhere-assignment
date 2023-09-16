@@ -7,6 +7,14 @@ enum ApiInfo {
   Healthy = "healthy",
 }
 
+export interface LatLong {
+  latitude: number;
+  longitude: number;
+}
+export interface LatLongWithName {
+  name: string | null;
+  location: LatLong;
+}
 interface TrafficImageCamera {
   camera_id: string;
   image: string;
@@ -15,14 +23,11 @@ interface TrafficImageCamera {
     width: number;
     md5: string;
   };
-  location: {
-    latitude: number;
-    longitude: number;
-  };
+  location: LatLong;
   timestamp: string;
 }
 interface TrafficImageItem {
-  camera: TrafficImageCamera[];
+  cameras: TrafficImageCamera[];
   timestamp: string;
 }
 

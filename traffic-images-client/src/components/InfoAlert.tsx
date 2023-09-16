@@ -8,7 +8,7 @@ import {
 
 interface InfoAlertProps extends AlertProps {
   message: string;
-  title: string;
+  title?: string;
 }
 export const InfoAlert = ({ status, title, message }: InfoAlertProps) => {
   return (

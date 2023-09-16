@@ -14,7 +14,7 @@ export const useGetTrafficImages = ({
   const httpService = new TrafficImagesHttpService();
 
   return useQuery(
-    queryKeys.list(),
+    queryKeys.list({ datetime }),
     () => httpService.getTrafficImages({ datetime }),
     {
       retry: 0,
