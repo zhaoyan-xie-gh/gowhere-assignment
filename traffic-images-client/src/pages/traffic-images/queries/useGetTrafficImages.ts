@@ -6,7 +6,7 @@ interface UseGetTrafficImagesParams {
   datetime: string | undefined;
 }
 
-const REFETCH_INTERVAL = 60 * 1000;
+const REFETCH_INTERVAL = 2 * 60 * 1000;
 
 export const useGetTrafficImages = ({
   datetime,

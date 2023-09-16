@@ -6,7 +6,7 @@ import { LatLong, LatLongWithName } from "../types";
   of the LTA's camera and NEA's camera, ensuring they remain within specified constraints..
 */
 
-const LAT_BOUNDARY_LIMIT = 0.04;
+const LAT_BOUNDARY_LIMIT = 0.02;
 const LONG_BOUNDARY_LIMIT = 0.035;
 
 export const reverseGeoCoding = (

@@ -15,7 +15,12 @@ export interface LatLongWithName {
   name: string | null;
   location: LatLong;
 }
-interface TrafficImageCamera {
+export interface LatLongWithNameByFirstLetter {
+  [firstLetter: string]: LatLongWithName[];
+}
+export const UNKNOWN_LOCATION_KEY = "Unknown";
+
+export interface TrafficImageCamera {
   camera_id: string;
   image: string;
   image_metadata: {
