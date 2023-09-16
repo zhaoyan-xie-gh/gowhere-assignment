@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  client:
+    build: ./traffic-images-client
+    volumes:
+      - ./traffic-images-client:/app
+    command: npm run start
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+  server:
+    build: ./traffic-images-server
+    volumes:
+      - ./traffic-images-server:/app
+    command: npm run start
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
