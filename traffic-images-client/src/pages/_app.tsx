@@ -1,5 +1,6 @@
-import ErrorFallback from "@/components/ErrorFallback";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ErrorFallback } from "@/components/ErrorFallback";
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import { AppProps } from "next/app";
 import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import {
@@ -7,17 +8,21 @@ import {
   QueryClientProvider,
   useQueryErrorResetBoundary,
 } from "react-query";
-import "../styles/globals.css";
+import { Layout } from "../components/Layout";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
   const { reset } = useQueryErrorResetBoundary();
 
   return (
     <ChakraProvider>
+      <CSSReset />
+
       <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
         <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </QueryClientProvider>
       </ErrorBoundary>
     </ChakraProvider>
