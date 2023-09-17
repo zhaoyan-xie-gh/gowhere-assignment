@@ -18,9 +18,8 @@ export class TrafficImagesHttpService {
   async reverseGeoCoding(
     dto: ReverseGeoCodingDto
   ): Promise<LatLongWithNameByFirstLetter> {
-    return httpApiClient.post(
-      "http://localhost:3001/api/v1/reverse-geocode",
-      dto
-    );
+    return httpApiClient.post(`/api/v1/reverse-geocode`, dto, {
+      baseURL: "/internal/server",
+    });
   }
 }
