@@ -10,9 +10,8 @@ const customJestConfig = {
   },
   moduleDirectories: ["node_modules", "<rootDir>/"],
   testEnvironment: "jest-environment-jsdom",
-  // setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-  bail: 0,
-  testTimeout: 20000,
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  bail: 1,
 };
 
 module.exports = createJestConfig(customJestConfig);
