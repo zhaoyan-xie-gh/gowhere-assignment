@@ -32,7 +32,7 @@ export interface TrafficImageCamera {
   location: LatLong;
   timestamp: string;
 }
-interface TrafficImageItem {
+export interface TrafficImageItem {
   cameras: TrafficImageCamera[];
   timestamp: string;
 }

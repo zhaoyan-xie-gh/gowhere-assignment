@@ -37,10 +37,11 @@ export default function TrafficImages() {
     cameras.map(({ location }) => location)
   );
 
-  const { data: weather2HData, isLoading: isWeatherLoading } =
-    useGetTwoHourWeatherForecast({
-      datetime: transformedDatetime,
-    });
+  const q = useGetTwoHourWeatherForecast({
+    datetime: transformedDatetime,
+  });
+  console.info(">>>>> q", q);
+  const { data: weather2HData, isLoading: isWeatherLoading } = q;
   const areaMetadata = weather2HData?.area_metadata;
 
   const { data: locationsByFirstLetter, isLoading: isGeoCodeLoading } =
