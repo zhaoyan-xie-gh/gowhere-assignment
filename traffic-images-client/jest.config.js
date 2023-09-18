@@ -12,6 +12,21 @@ const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   bail: 1,
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "!src/**/*.test.ts",
+    "!src/**/*.test.tsx",
+    "!src/**/types.ts",
+    "!src/**/queryKeys.ts",
+    "!src/**/services.ts",
+    "!src/middleware.ts",
+    "!src/config/*.ts",
+    "!src/gateways/*.ts",
+    "!src/lib/*.ts",
+    "!src/**/_app.tsx",
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);
