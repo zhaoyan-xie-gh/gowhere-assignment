@@ -5,7 +5,7 @@ import "react-datetime/css/react-datetime.css";
 import { DATE_FORMAT, TIME_FORMAT } from "../contants/datetime";
 
 export type StyledDatetimeType = "date" | "time";
-interface StyledDatetimeProps {
+export interface StyledDatetimeProps {
   onChange:
     | ((value: string | moment.Moment, type: StyledDatetimeType) => void)
     | undefined;
@@ -29,6 +29,7 @@ export const StyledDatetime = ({
         onChange={(value) => onChange?.(value, type)}
         renderInput={(_, openCalendar) => (
           <Input
+            data-testid="styled-datetime-input"
             w="100%"
             bg="white"
             mr="4"

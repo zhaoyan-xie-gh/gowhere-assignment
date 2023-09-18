@@ -8,11 +8,6 @@ interface WeatherForecastWidgetProps {
   weatherData: WeatherForecast2HResponseItem | undefined;
 }
 
-/**
- * If datetime is provided, show 24-h weather forecast,
- * else display 2h weather forecast
- */
-
 const DATE_FORMAT = "YYYY-MM-DD, hh:mm";
 
 export const WeatherForecastWidget = ({
