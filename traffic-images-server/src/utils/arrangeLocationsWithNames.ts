@@ -1,4 +1,4 @@
-import { sortBy, upperFirst } from 'lodash';
+import { sortBy } from 'lodash';
 import { LatLongWithName, LatLongWithNameByFirstLetter } from 'src/app.dto';
 
 export const arrangeLocationsWithNames = (
@@ -16,7 +16,7 @@ export const arrangeLocationsWithNames = (
         [firstLetter]: [
           ...existingLocations,
           {
-            name: appendIndexToName(name, existingLocations),
+            name,
             location: { latitude, longitude },
           },
         ],
@@ -29,7 +29,7 @@ export const arrangeLocationsWithNames = (
     (acc, [key, locations]) => {
       return {
         ...acc,
-        [key]: sortBy(locations, 'name'),
+        [key]: appendIndexToName(sortBy(locations, 'name')),
       };
     },
     {} as LatLongWithNameByFirstLetter,
@@ -37,13 +37,19 @@ export const arrangeLocationsWithNames = (
 };
 
 const appendIndexToName = (
-  originalName: string,
-  locations: LatLongWithName[],
-) => {
-  const locationsWithSameName = locations.filter(
-    ({ name }) => name?.includes(originalName),
-  );
-  return locationsWithSameName.length >= 1
-    ? `${upperFirst(originalName)} [${++locationsWithSameName.length}]`
-    : upperFirst(originalName);
+  locationsWithName: LatLongWithName[],
+): LatLongWithName[] => {
+  let counter = 1;
+  return locationsWithName.map(({ name, location }, i) => {
+    if (i === 0) {
+      return { name, location };
+    }
+
+    const prevName = locationsWithName[i - 1].name;
+    if (name === prevName) {
+      return { name: `${name} [${counter++ + 1}]`, location };
+    }
+    counter = 1;
+    return { name, location };
+  });
 };

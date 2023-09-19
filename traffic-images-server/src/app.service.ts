@@ -4,6 +4,8 @@ import { AreaMetadata, LatLongWithName, ReverseGeoCodingDto } from './app.dto';
 import { arrangeLocationsWithNames } from './utils/arrangeLocationsWithNames';
 import { findMatchingArea } from './utils/findMatchingArea';
 
+const INCREMENT_UNIT = 0.002;
+
 @Injectable()
 export class AppService {
   private _areaMetadata: AreaMetadata[] = [];
@@ -36,10 +38,10 @@ export class AppService {
 
   increaseLatLongLimit(): void {
     if (this._shouldIncreaseLatOrLongLimit === 'lat') {
-      this._latLimit += 0.002;
+      this._latLimit += INCREMENT_UNIT;
       this._shouldIncreaseLatOrLongLimit = 'long';
     } else {
-      this._longLimit += 0.002;
+      this._longLimit += INCREMENT_UNIT;
       this._shouldIncreaseLatOrLongLimit = 'lat';
     }
   }
