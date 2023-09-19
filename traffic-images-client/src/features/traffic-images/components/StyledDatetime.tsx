@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import moment from "moment";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
@@ -23,23 +23,25 @@ export const StyledDatetime = ({
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
-      <Datetime
-        dateFormat={type === "time" ? false : DATE_FORMAT}
-        timeFormat={type === "date" ? false : TIME_FORMAT}
-        onChange={(value) => onChange?.(value, type)}
-        renderInput={(_, openCalendar) => (
-          <Input
-            data-testid="styled-datetime-input"
-            w="100%"
-            bg="white"
-            mr="4"
-            onFocus={() => openCalendar()}
-            placeholder={`Select ${type}...`}
-            value={value ?? ""}
-            readOnly
-          />
-        )}
-      />
+      <Box data-testid={`styled-datetime-${type}`}>
+        <Datetime
+          dateFormat={type === "time" ? false : DATE_FORMAT}
+          timeFormat={type === "date" ? false : TIME_FORMAT}
+          onChange={(value) => onChange?.(value, type)}
+          renderInput={(_, openCalendar) => (
+            <Input
+              data-testid={`styled-datetime-input-${type}`}
+              w="100%"
+              bg="white"
+              mr="4"
+              onFocus={() => openCalendar()}
+              placeholder={`Select ${type}...`}
+              value={value ?? ""}
+              readOnly
+            />
+          )}
+        />
+      </Box>
     </FormControl>
   );
 };

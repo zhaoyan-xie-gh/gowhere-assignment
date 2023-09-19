@@ -29,19 +29,18 @@ export default function TrafficImages() {
 
   const transformedDatetime =
     transformDatetimeInputToTrafficImagesParams(datetime);
-  const { data: trafficData, isLoading: isTrafficLoading } =
-    useGetTrafficImages({
-      datetime: transformedDatetime,
-    });
+  const q = useGetTrafficImages({
+    datetime: transformedDatetime,
+  });
+  const { data: trafficData, isLoading: isTrafficLoading } = q;
   const locations = trafficData?.items.flatMap(({ cameras }) =>
     cameras.map(({ location }) => location)
   );
 
-  const q = useGetTwoHourWeatherForecast({
-    datetime: transformedDatetime,
-  });
-  console.info(">>>>> q", q);
-  const { data: weather2HData, isLoading: isWeatherLoading } = q;
+  const { data: weather2HData, isLoading: isWeatherLoading } =
+    useGetTwoHourWeatherForecast({
+      datetime: transformedDatetime,
+    });
   const areaMetadata = weather2HData?.area_metadata;
 
   const { data: locationsByFirstLetter, isLoading: isGeoCodeLoading } =

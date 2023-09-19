@@ -5,7 +5,7 @@ export interface DatetimeInput {
   time?: string;
 }
 
-enum ApiInfo {
+export enum ApiInfo {
   Healthy = "healthy",
 }
 
