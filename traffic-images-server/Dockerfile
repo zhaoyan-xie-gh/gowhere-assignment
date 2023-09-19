@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Build the Next.js application
-RUN npm run build
+# RUN npm run build
 
 # Expose a port (e.g., 3000) that your Nest.js app listens on
 EXPOSE 3001

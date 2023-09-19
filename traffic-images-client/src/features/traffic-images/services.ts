@@ -1,4 +1,4 @@
-import { httpApiClient } from "@/gateways/httpApiClient";
+import { httpApiClient, internalServerClient } from "@/gateways/httpApiClient";
 import {
   LatLongWithNameByFirstLetter,
   ReverseGeoCodingDto,
@@ -18,8 +18,6 @@ export class TrafficImagesHttpService {
   async reverseGeoCoding(
     dto: ReverseGeoCodingDto
   ): Promise<LatLongWithNameByFirstLetter> {
-    return httpApiClient.post(`/api/v1/reverse-geocode`, dto, {
-      baseURL: "/internal/server",
-    });
+    return internalServerClient.post(`/api/v1/reverse-geocode`, dto);
   }
 }

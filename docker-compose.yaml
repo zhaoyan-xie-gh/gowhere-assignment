@@ -4,17 +4,17 @@ services:
     build: ./traffic-images-client
     volumes:
       - ./traffic-images-client:/app
-    command: npm run start
+    command: npm run dev
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
   server:
     build: ./traffic-images-server
     volumes:
       - ./traffic-images-server:/app
-    command: npm run start
+    command: npm run start:dev
     ports:
       - "3001:3001"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
