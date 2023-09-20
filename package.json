@@ -1,0 +1,19 @@
+{
+  "name": "gowhere-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "cd traffic-images-client && npm install && cd ../traffic-images-server && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaoyanxzy/gowhere-assignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhaoyanxzy/gowhere-assignment/issues"
+  },
+  "homepage": "https://github.com/zhaoyanxzy/gowhere-assignment#readme"
+}
