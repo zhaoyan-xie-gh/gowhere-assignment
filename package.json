@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "cd traffic-images-client && npm install && cd ../traffic-images-server && npm install"
+    "preinstall:client": "cd traffic-images-client && npm install && cp .env.sample .env.local",
+    "preinstall:server": "cd traffic-images-server && npm install && cp .env.sample .env",
+    "preinstall": "npm run preinstall:server && npm run preinstall:client"
   },
   "repository": {
     "type": "git",
